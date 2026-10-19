@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto | Hugo Vazquez - Desarrollador Web</title>
+  <meta name="description" content="Hablemos de tu proyecto web. Escríbeme y te respondo lo antes posible.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070714;
+      --glass: rgba(255, 255, 255, 0.06);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --c1: #8b5cf6;
+      --c2: #ec4899;
+      --c3: #22d3ee;
+      --error: #fb7185;
+      --ok: #34d399;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Fondo animado con halos de color */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.55;
+      z-index: -1;
+      animation: float 14s ease-in-out infinite;
+    }
+    .b1 { width: 420px; height: 420px; background: var(--c1); top: -120px; left: -100px; }
+    .b2 { width: 380px; height: 380px; background: var(--c2); bottom: -120px; right: -80px; animation-delay: -5s; }
+    .b3 { width: 300px; height: 300px; background: var(--c3); top: 40%; left: 55%; animation-delay: -9s; opacity: 0.35; }
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(40px, -30px) scale(1.08); }
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 1000px;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    /* Columna izquierda: presentación */
+    .intro { padding: 12px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--ok);
+      box-shadow: 0 0 10px var(--ok);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    h1 {
+      font-family: "Outfit", sans-serif;
+      font-size: clamp(2.6rem, 6vw, 4rem);
+      line-height: 1.02;
+      margin: 0 0 16px;
+      font-weight: 800;
+    }
+    .gradient-text {
+      background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 200% auto;
+      animation: shine 6s linear infinite;
+    }
+    @keyframes shine { to { background-position: 200% center; } }
+
+    .intro p { color: var(--muted); font-size: 1.05rem; line-height: 1.6; margin: 0 0 28px; max-width: 420px; }
+
+    .contact-links { display: flex; flex-direction: column; gap: 12px; }
+    .contact-links a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: transform 0.2s, background 0.2s, border-color 0.2s;
+    }
+    .contact-links a:hover { transform: translateX(6px); background: rgba(255,255,255,0.1); border-color: var(--c1); }
+    .icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--c1), var(--c2));
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    /* Columna derecha: formulario */
+    .card {
+      background: var(--glass);
+      backdrop-filter: blur(20px) saturate(140%);
+      -webkit-backdrop-filter: blur(20px) saturate(140%);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 36px;
+      box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+    .card h2 { font-family: "Outfit", sans-serif; font-size: 1.6rem; margin: 0 0 6px; }
+    .card .sub { color: var(--muted); margin: 0 0 26px; font-size: 0.95rem; }
+
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field { position: relative; margin-bottom: 18px; }
+    .field input, .field textarea {
+      width: 100%;
+      padding: 20px 16px 8px;
+      border-radius: 14px;
+      border: 1px solid var(--glass-border);
+      background: rgba(7, 7, 20, 0.6);
+      color: var(--text);
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .field textarea { min-height: 130px; resize: vertical; padding-top: 24px; }
+    .field label {
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      pointer-events: none;
+      transition: all 0.2s ease;
+    }
+    .field input:focus, .field textarea:focus {
+      outline: none;
+      border-color: var(--c1);
+      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+    }
+    .field input:focus + label,
+    .field input:not(:placeholder-shown) + label,
+    .field textarea:focus + label,
+    .field textarea:not(:placeholder-shown) + label {
+      top: 6px;
+      font-size: 0.72rem;
+      color: var(--c3);
+    }
+    .field input:not(:placeholder-shown) + label,
+    .field textarea:not(:placeholder-shown) + label { color: var(--muted); }
+
+    .field.invalid input, .field.invalid textarea { border-color: var(--error); }
+    .err {
+      color: var(--error);
+      font-size: 0.8rem;
+      margin: 6px 0 0 4px;
+      display: none;
+    }
+    .field.invalid .err { display: block; }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(90deg, var(--c1), var(--c2));
+      color: #fff;
+      font-family: "Outfit", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+      box-shadow: 0 12px 30px -10px rgba(236, 72, 153, 0.6);
+    }
+    .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 16px 36px -10px rgba(236, 72, 153, 0.8); }
+    .btn:active:not(:disabled) { transform: translateY(0); }
+    .btn:disabled { opacity: 0.7; cursor: wait; }
+
+    .status {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 0.95rem;
+      display: none;
+      animation: slideIn 0.4s ease;
+    }
+    .status.ok { display: block; background: rgba(52, 211, 153, 0.12); color: var(--ok); border: 1px solid rgba(52,211,153,0.4); }
+    .status.fail { display: block; background: rgba(251, 113, 133, 0.12); color: var(--error); border: 1px solid rgba(251,113,133,0.4); }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    .hp { position: absolute; left: -9999px; }
+
+    footer {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-top: 8px;
+    }
+
+    /* Móvil */
+    @media (max-width: 800px) {
+      .wrapper { grid-template-columns: 1fr; gap: 28px; }
+      .intro { text-align: center; }
+      .intro p { margin-left: auto; margin-right: auto; }
+      .contact-links { max-width: 420px; margin: 0 auto; }
+      .contact-links a:hover { transform: none; }
+      .badge { margin-left: auto; margin-right: auto; }
+    }
+    @media (max-width: 480px) {
+      .card { padding: 26px 20px; border-radius: 20px; }
+      .row { grid-template-columns: 1fr; gap: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+
+  <div class="wrapper">
+    <section class="intro">
+      <span class="badge"><span class="dot"></span> Disponible para nuevos proyectos</span>
+      <h1>Hola, soy <span class="gradient-text">Hugo Vazquez</span></h1>
+      <p>Desarrollador web. Creo páginas rápidas, bonitas y pensadas para convertir visitas en clientes. ¿Hablamos de tu proyecto?</p>
+
+      <div class="contact-links">
+        <a href="mailto:vaznichugo@gmail.com">
+          <span class="icon">✉</span>
+          vaznichugo@gmail.com
+        </a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Envíame un mensaje</h2>
+      <p class="sub">Respondo en menos de 24 horas.</p>
+
+      <form id="contactForm" novalidate>
+        <input type="hidden" name="access_key" value="b0efba31-a7d9-4527-aa52-fc554c0cb83a">
+        <input type="hidden" name="subject" value="Nuevo contacto desde tu web - Hugo Vazquez">
+        <input type="hidden" name="from_name" value="Web de contacto">
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+
+        <div class="row">
+          <div class="field" data-field="name">
+            <input type="text" id="name" name="name" placeholder=" " autocomplete="name">
+            <label for="name">Tu nombre</label>
+            <div class="err">Escribe tu nombre.</div>
+          </div>
+          <div class="field" data-field="email">
+            <input type="email" id="email" name="email" placeholder=" " autocomplete="email">
+            <label for="email">Tu email</label>
+            <div class="err">Introduce un email válido.</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <input type="tel" id="phone" name="phone" placeholder=" " autocomplete="tel">
+          <label for="phone">Teléfono (opcional)</label>
+        </div>
+
+        <div class="field" data-field="message">
+          <textarea id="message" name="message" placeholder=" "></textarea>
+          <label for="message">Cuéntame sobre tu proyecto</label>
+          <div class="err">El mensaje debe tener al menos 10 caracteres.</div>
+        </div>
+
+        <button type="submit" class="btn" id="submitBtn">Enviar mensaje →</button>
+        <div id="status" class="status" role="status"></div>
+      </form>
+    </section>
+
+    <footer>© <span id="year"></span> Hugo Vazquez · Desarrollo web</footer>
+  </div>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const statusBox = document.getElementById('status');
+    const submitBtn = document.getElementById('submitBtn');
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+
+    function validate() {
+      const checks = {
+        name: form.name.value.trim().length > 0,
+        email: isEmail(form.email.value.trim()),
+        message: form.message.value.trim().length >= 10,
+      };
+      let ok = true;
+      for (const key in checks) {
+        const wrap = document.querySelector(`[data-field="${key}"]`);
+        wrap.classList.toggle('invalid', !checks[key]);
+        if (!checks[key]) ok = false;
+      }
+      return ok;
+    }
+
+    // Quitar el error en cuanto el usuario corrige el campo
+    form.querySelectorAll('input, textarea').forEach(el => {
+      el.addEventListener('input', () => {
+        const wrap = el.closest('[data-field]');
+        if (wrap && wrap.classList.contains('invalid')) validate();
+      });
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      statusBox.className = 'status';
+      statusBox.textContent = '';
+
+      if (!validate()) return;
+      if (form.botcheck.checked) return;
+
+      submitBtn.disabled = true;
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Enviando...';
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        });
+        const result = await response.json();
+
+        if (result.success) {
+          statusBox.className = 'status ok';
+          statusBox.textContent = '¡Mensaje enviado! Gracias por escribirme, te respondo pronto.';
+          form.reset();
+        } else {
+          throw new Error(result.message || 'Error desconocido');
+        }
+      } catch (err) {
+        statusBox.className = 'status fail';
+        statusBox.textContent = 'No se pudo enviar el mensaje. Inténtalo de nuevo o escríbeme a vaznichugo@gmail.com.';
+        console.error(err);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      }
+    });
+  </script>
+</body>
+</html>
